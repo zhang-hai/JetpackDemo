@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="color_new_friend">#FF9800</color>
+    <color name="color_group_chat">#4CAF50</color>
+    <color name="color_lables">#2196F3</color>
+    <color name="color_offical_account">#2196F3</color>
+
+    <color name="color_line">#f2f2f2</color>
+
+    <color name="color_content_gray">#ededed</color>
+</resources>

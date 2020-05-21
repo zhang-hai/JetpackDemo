@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/m_item_chat"
+        android:icon="@drawable/ic_textsms_black"
+        android:title="@string/str_chat"
+        android:visible="true" />
+    <item
+        android:id="@+id/m_item_book"
+        android:icon="@drawable/ic_people_black"
+        android:title="@string/str_book"
+        android:visible="true" />
+    <item
+        android:id="@+id/m_item_find"
+        android:icon="@drawable/ic_public_black"
+        android:title="@string/str_find"
+        android:visible="true" />
+    <item
+        android:id="@+id/m_item_me"
+        android:icon="@drawable/ic_person_black"
+        android:title="@string/str_me"
+        android:visible="true" />
+</menu>

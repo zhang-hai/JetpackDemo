@@ -1,0 +1,3 @@
+rootProject.name='JetpackDemo'
+include ':app_room'
+include ':app_navigation'

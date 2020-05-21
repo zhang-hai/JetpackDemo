@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_gap"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/inputFragment"
+        android:name="com.zhh.image.compressor.jetpackdemo.InputFragment"
+        android:label="InputFragment" >
+        <action
+            android:id="@+id/action_inputFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fm_enter"
+            app:exitAnim="@anim/fm_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.zhh.image.compressor.jetpackdemo.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_inputFragment"
+            app:destination="@id/inputFragment"
+            app:enterAnim="@anim/fm_enter"
+            app:exitAnim="@anim/fm_exit" />
+    </fragment>
+</navigation>
