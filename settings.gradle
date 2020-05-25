@@ -1,3 +1,4 @@
 rootProject.name='JetpackDemo'
 include ':app_room'
 include ':app_navigation'
+include ':app_shotcuts'

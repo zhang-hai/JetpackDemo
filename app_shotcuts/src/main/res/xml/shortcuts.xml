@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_me_collection"
+        android:shortcutDisabledMessage="@string/str_login_enable"
+        android:shortcutId="id_stc_login"
+        android:shortcutLongLabel="@string/str_login_label"
+        android:shortcutShortLabel="@string/str_login_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="content://zhh/fromStaticShortcut"
+            android:targetClass="com.zhh.shotcuts.demo.ui.login.LoginActivity"
+            android:targetPackage="com.zhh.shotcuts.demo" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_me_emoj"
+        android:shortcutDisabledMessage="@string/str_search_enable"
+        android:shortcutId="id_stc_search"
+        android:shortcutLongLabel="@string/str_search_label"
+        android:shortcutShortLabel="@string/str_search_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="content://zhh/fromStaticShortcut"
+            android:targetClass="com.zhh.shotcuts.demo.MainActivity"
+            android:targetPackage="com.zhh.shotcuts.demo" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>
