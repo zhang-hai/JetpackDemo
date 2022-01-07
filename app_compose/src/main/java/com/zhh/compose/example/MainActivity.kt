@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zhh.compose.example.exam01.IntroductionActivity
+import com.zhh.compose.example.exam02.CustomUIActivity
 import com.zhh.compose.example.ui.theme.JetpackDemoTheme
 
 class MainActivity:ComponentActivity() {
@@ -29,13 +31,21 @@ class MainActivity:ComponentActivity() {
 
     @Composable
     fun MainContent(){
-        Row(modifier = Modifier.fillMaxSize().padding(10.dp)
-            ,horizontalArrangement= Arrangement.Center) {
-           Button(modifier = Modifier.size(Dp.Infinity,Dp.Infinity),onClick = {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+            horizontalAlignment= Alignment.CenterHorizontally) {
+           Button(modifier = Modifier.size(200.dp,Dp.Infinity),onClick = {
                startActivity(Intent(this@MainActivity,IntroductionActivity::class.java))
            }) {
                Text(text = "Compose快速入门")
            }
+            Spacer(modifier = Modifier.size(1.dp,10.dp))
+            Button(modifier = Modifier.size(200.dp,Dp.Infinity),onClick = {
+                startActivity(Intent(this@MainActivity,CustomUIActivity::class.java))
+            }) {
+                Text(text = "布局")
+            }
         }
     }
 

@@ -20,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--compose快速入门-->
         <activity android:name=".exam01.IntroductionActivity"/>
+        <!--自定义布局-->
+        <activity android:name=".exam02.CustomUIActivity"/>
     </application>
 
 </manifest>
