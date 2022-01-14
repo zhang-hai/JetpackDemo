@@ -5,6 +5,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zhh.compose.example.R
@@ -152,6 +154,8 @@ fun ShowMaterialComponents(){
             leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "placeholder")},
             //在输入框最右侧显示一个icon
             trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+            //设置输入框输入类型
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         //--------------------OutlinedTextField 输入框,可输入内容并显示
         val valueState = remember {
@@ -169,6 +173,8 @@ fun ShowMaterialComponents(){
             leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.AccountCircle), contentDescription = "placeholder")},
             //在输入框最右侧显示一个icon
             trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+            //设置输入框输入类型
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         Row {
