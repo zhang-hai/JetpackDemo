@@ -8,11 +8,11 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material.icons.rounded.Email
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.zhh.compose.example.R
 import com.zhh.compose.example.ui.theme.JetpackDemoTheme
@@ -48,6 +47,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MaterialUICompose(){
 
+    //Material常用基本组件
+    ShowMaterialComponents()
 
 //    1.ScaffoldCompose()
 
@@ -61,7 +62,166 @@ fun MaterialUICompose(){
 //    BottomSheetCompose()
 
     //5.背景幕
-    BackdropScaffoldCompose()
+//    BackdropScaffoldCompose()
+}
+
+/**
+ * 展示Material基本组件
+ *
+ * 1.Button : TextButton 、Button、IconButton、IconToggleButton、OutlineButton、
+ *            RadioButton、ExtendedFloatingActionButton、FloatingActionButton
+ *
+ */
+@Composable
+fun ShowMaterialComponents(){
+    Column {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+        ) {
+            // 文本框
+            Text(text = "文本框")
+            //1 纯文字按钮
+            TextButton(onClick = {
+
+            }) {
+                Text("TextButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            //2 普通按钮
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Button")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            // 3 带Icon的按钮
+            IconButton(onClick = { /*TODO*/ },modifier = Modifier.requiredWidth(120.dp)) {
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Icon(
+                        Icons.Filled.Favorite,
+                        contentDescription = "Favorite",
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
+                    )
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(text = "IconButton")
+                }
+            }
+        }
+        Row {
+            Spacer(modifier = Modifier.width(5.dp))
+            // 4 IconToggleButton
+            IconToggleButton(checked = true, onCheckedChange = {},modifier = Modifier.requiredWidth(120.dp)) {
+                Text(text = "IconToggleButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            //5 OutlinedButton
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text(text = "OutlinedButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            // 6 RadioButton
+            RadioButton(selected = true, onClick = { /*TODO*/ })
+        }
+
+        //扩展悬浮按钮
+        ExtendedFloatingActionButton(
+            icon={ Icon(imageVector = Icons.Default.Favorite, contentDescription = "")},
+            text = { Text("Like")},
+            onClick = {  },
+        )
+
+        //--------------------分割线
+        Divider(modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp),color = Color.DarkGray)
+
+        //--------------------Icon
+        Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "")
+        //--------------------TextField 输入框 未设置onValueChange时，无论输入何内容均显示“你好”，因为输入内容未赋值给value，与Android原生EditText不同
+        TextField(
+            //输入框中输入的内容
+            value = "",
+            onValueChange = {},
+            //是否单行显示
+            singleLine = true,
+            // 输入框提示内容
+            label = { Text(text = "TextField")},
+            //输入框中文字为空时占位内容
+            placeholder = { Text(text = "请输入内容")},
+            //在输入框左侧显示一个icon
+            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "placeholder")},
+            //在输入框最右侧显示一个icon
+            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+        )
+        //--------------------OutlinedTextField 输入框,可输入内容并显示
+        val valueState = remember {
+            mutableStateOf("")
+        }
+        OutlinedTextField(
+            value = valueState.value,
+            onValueChange = {valueState.value = it},
+            singleLine = true,
+            // 输入框提示内容
+            label = { Text(text = "OutlinedTextField")},
+            //输入框中文字为空时占位内容
+            placeholder = { Text(text = "请输入内容") },
+            //在输入框左侧显示一个icon
+            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.AccountCircle), contentDescription = "placeholder")},
+            //在输入框最右侧显示一个icon
+            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+        )
+
+        Row {
+            //--------------------Switch 组件
+            val switchState = remember {
+                mutableStateOf(false)
+            }
+            Switch(checked = switchState.value, onCheckedChange = {switchState.value = it})
+
+            //--------------------Checkbox 勾选框
+            val checkState = remember {
+                mutableStateOf(false)
+            }
+            Checkbox(checked = checkState.value, onCheckedChange = {checkState.value = it})
+        }
+
+        //--------------------Slider 滑块
+        val sliderState = remember {
+            mutableStateOf(0f)
+        }
+        Slider(value = sliderState.value, onValueChange = {sliderState.value = it})
+
+        //--------------------进度条
+        CircularProgressIndicator(progress = 0.5f)
+        Spacer(modifier = Modifier.height(10.dp))
+        LinearProgressIndicator(0.5f)
+        Spacer(modifier = Modifier.height(10.dp))
+
+        //--------------------选项卡 TabRow
+        val state = remember { mutableStateOf(0) }
+        val titles = listOf("消息", "通讯录", "附近","我")
+        TabRow(selectedTabIndex = state.value,modifier = Modifier.height(50.dp)) {
+            titles.forEachIndexed {index,text->
+                Tab(selected = state.value == index, onClick = { state.value = index }) {
+                    VerticalImageText(text = text)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+        //--------------------可滑动选项卡 TabRow
+        val sTabState = remember { mutableStateOf(0) }
+        val sTitles = listOf("消息", "通讯录", "附近","我","交友","教育","购物")
+        ScrollableTabRow(selectedTabIndex = sTabState.value,
+            modifier = Modifier.height(50.dp),
+            edgePadding = 0.dp) {
+            sTitles.forEachIndexed {index,text->
+                Tab(selected = sTabState.value == index, onClick = { sTabState.value = index }) {
+                    VerticalImageText(text = text)
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -111,57 +271,7 @@ fun ScaffoldCompose(){
         isFloatingActionButtonDocked = true,
         drawerContent = {DrawerContent()}
     ) {
-        ShowButtons()
-    }
-}
-
-@Composable
-fun ShowButtons(){
-    Column {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())) {
-            TextButton(onClick = {
-
-            }) {
-                Text("TextButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Button")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            IconButton(onClick = { /*TODO*/ },modifier = Modifier.requiredWidth(120.dp)) {
-                Row (verticalAlignment = Alignment.CenterVertically){
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(text = "IconButton")
-                }
-            }
-        }
-        Row {
-            Spacer(modifier = Modifier.width(5.dp))
-            IconToggleButton(checked = true, onCheckedChange = {},modifier = Modifier.requiredWidth(120.dp)) {
-                Text(text = "IconToggleButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = "OutlinedButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            RadioButton(selected = true, onClick = { /*TODO*/ })
-        }
-
-        ExtendedFloatingActionButton(
-            icon={ Icon(imageVector = Icons.Default.Favorite, contentDescription = "")},
-            text = { Text("Like")},
-            onClick = {  },
-        )
+        ShowMaterialComponents()
     }
 }
 
@@ -327,8 +437,8 @@ fun BackdropScaffoldCompose(){
                 }
             }
         ) },
-        backLayerContent = { ShowButtons() },
-        frontLayerContent ={ ShowButtons() },
+        backLayerContent = { ShowMaterialComponents() },
+        frontLayerContent ={ ShowMaterialComponents() },
         //后层header的可视高度高度
         peekHeight = 50.dp,
         //前层header的最小非活动高度
