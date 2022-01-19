@@ -3,6 +3,7 @@ package com.zhh.compose.example.exam02
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -42,6 +43,69 @@ import com.zhh.compose.example.ui.theme.JetpackDemoTheme
  *  基于槽位的布局-Scaffold、TopAppBar
  */
 
+/**
+ * 标准布局 - Box
+ */
+@Composable
+fun BoxExample(){
+    Box (
+        modifier = Modifier.size(width = 230.dp,height = 100.dp),
+        contentAlignment = Alignment.Center
+    ){  //对应content参数 lambda表达上
+        Text(text = "Compose 111")
+        Text(text = "Compose 666666")
+    }
+}
+
+/**
+ * 标准布局 - Column
+ */
+@Composable
+fun ColumnExample(){
+    Column (
+        modifier = Modifier.size(width = 230.dp,height = 100.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.End
+    ){  //对应content参数 lambda表达上
+        Text(text = "Text 111")
+        Text(text = "Text 666666")
+    }
+}
+
+/**
+ * 标准布局 - Row
+ */
+@Composable
+fun RowExample(){
+    Row (
+        modifier = Modifier.size(width = 230.dp,height = 100.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.Bottom
+    ){  //对应content参数 lambda表达上
+        Text(text = "Text 111")
+        Text(text = "Text 666666")
+    }
+}
+
+/**
+ * 修饰符使用示例
+ */
+@Composable
+fun ModifierExample(){
+    //添加一个图片
+    Image(
+        //填充内容
+        painter = painterResource(id = R.mipmap.ic_girl),
+        contentDescription = "logo",
+        //尺寸及形状
+        modifier= Modifier
+            .background(Color.Blue)
+            .padding(top = 2.dp)
+            .size(40.dp)             //图像尺寸
+            .clip(CircleShape)       //形状
+            .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)//边框样式
+    )
+}
 
 /**
  * Compose 中的类型安全
@@ -159,7 +223,7 @@ fun TopBar(onBackClick:()->Unit = {},onMenuClick:()->Unit = {}){
                 modifier = Modifier
                     .size(40.dp)
                     .animateContentSize()
-                    .clickable {onBackClick() }
+                    .clickable { onBackClick() }
             )
             Text("这里是标题",
                 modifier = Modifier.weight(1f),
@@ -172,7 +236,7 @@ fun TopBar(onBackClick:()->Unit = {},onMenuClick:()->Unit = {}){
                 modifier = Modifier
                     .size(40.dp)
                     .animateContentSize()
-                    .clickable { onMenuClick()}
+                    .clickable { onMenuClick() }
             )
         }
     }
@@ -227,11 +291,16 @@ fun VerticalImageText(painter: Painter?=null,text:String){
 @Composable
 fun BasicUIPreview() {
     JetpackDemoTheme {
+        //BoxExample()
+//        ColumnExample()
+//        RowExample()
+        ModifierExample()
         //Compose 中的类型安全
 //        MatchParentSizeComposable()
         //自适应布局
 //        WithConstraintsComposable("姜雨柔")
         //基于槽位的布局
-        ScaffoldComposable({})
+//        ScaffoldComposable({})
+
     }
 }
