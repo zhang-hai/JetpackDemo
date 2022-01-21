@@ -22,10 +22,10 @@ class CustomUIActivity:ComponentActivity() {
 //                    finish()
 //                }
                 //2.Material组件和布局
-//                MaterialUICompose()
+                MaterialUICompose()
 
                 //3.ConstraintLayout
-                StudyConstraintLayout()
+//                StudyConstraintLayout()
             }
         }
     }

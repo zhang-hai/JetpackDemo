@@ -50,9 +50,9 @@ import kotlinx.coroutines.launch
 fun MaterialUICompose(){
 
     //Material常用基本组件
-    ShowMaterialComponents()
+//    ShowMaterialComponents()
 
-//    1.ScaffoldCompose()
+    ScaffoldCompose()
 
     //2.使用ModalDrawer替代Scaffold中的模态抽屉式导航栏
 //        ModalDrawerCompose()
@@ -77,60 +77,9 @@ fun MaterialUICompose(){
 @Composable
 fun ShowMaterialComponents(){
     Column {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-        ) {
-            // 文本框
-            Text(text = "文本框")
-            //1 纯文字按钮
-            TextButton(onClick = {
-
-            }) {
-                Text("TextButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            //2 普通按钮
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Button")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            // 3 带Icon的按钮
-            IconButton(onClick = { /*TODO*/ },modifier = Modifier.requiredWidth(120.dp)) {
-                Row (verticalAlignment = Alignment.CenterVertically){
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(text = "IconButton")
-                }
-            }
-        }
-        Row {
-            Spacer(modifier = Modifier.width(5.dp))
-            // 4 IconToggleButton
-            IconToggleButton(checked = true, onCheckedChange = {},modifier = Modifier.requiredWidth(120.dp)) {
-                Text(text = "IconToggleButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            //5 OutlinedButton
-            OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = "OutlinedButton")
-            }
-            Spacer(modifier = Modifier.width(5.dp))
-            // 6 RadioButton
-            RadioButton(selected = true, onClick = { /*TODO*/ })
-        }
-
-        //扩展悬浮按钮
-        ExtendedFloatingActionButton(
-            icon={ Icon(imageVector = Icons.Default.Favorite, contentDescription = "")},
-            text = { Text("Like")},
-            onClick = {  },
-        )
+        // 文本框
+        Text(text = "文本框")
+        ButtonsExample()
 
         //--------------------分割线
         Divider(modifier = Modifier
@@ -139,43 +88,7 @@ fun ShowMaterialComponents(){
 
         //--------------------Icon
         Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "")
-        //--------------------TextField 输入框 未设置onValueChange时，无论输入何内容均显示“你好”，因为输入内容未赋值给value，与Android原生EditText不同
-        TextField(
-            //输入框中输入的内容
-            value = "",
-            onValueChange = {},
-            //是否单行显示
-            singleLine = true,
-            // 输入框提示内容
-            label = { Text(text = "TextField")},
-            //输入框中文字为空时占位内容
-            placeholder = { Text(text = "请输入内容")},
-            //在输入框左侧显示一个icon
-            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "placeholder")},
-            //在输入框最右侧显示一个icon
-            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
-            //设置输入框输入类型
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        //--------------------OutlinedTextField 输入框,可输入内容并显示
-        val valueState = remember {
-            mutableStateOf("")
-        }
-        OutlinedTextField(
-            value = valueState.value,
-            onValueChange = {valueState.value = it},
-            singleLine = true,
-            // 输入框提示内容
-            label = { Text(text = "OutlinedTextField")},
-            //输入框中文字为空时占位内容
-            placeholder = { Text(text = "请输入内容") },
-            //在输入框左侧显示一个icon
-            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.AccountCircle), contentDescription = "placeholder")},
-            //在输入框最右侧显示一个icon
-            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
-            //设置输入框输入类型
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
+        TextFieldExample()
 
         Row {
             //--------------------Switch 组件
@@ -195,10 +108,10 @@ fun ShowMaterialComponents(){
         val sliderState = remember {
             mutableStateOf(0f)
         }
-        Slider(value = sliderState.value, onValueChange = {sliderState.value = it})
+        Slider(value = sliderState.value, onValueChange = {sliderState.value = it},steps = 2)
 
         //--------------------进度条
-        CircularProgressIndicator(progress = 0.5f)
+        CircularProgressIndicator(progress = 1.0f)
         Spacer(modifier = Modifier.height(10.dp))
         LinearProgressIndicator(0.5f)
         Spacer(modifier = Modifier.height(10.dp))
@@ -227,6 +140,114 @@ fun ShowMaterialComponents(){
                 }
             }
         }
+    }
+}
+
+
+
+/**
+ * material按钮集
+ */
+@Composable
+fun ButtonsExample(){
+    Column {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+        ) {
+            //1 纯文字按钮
+            TextButton(onClick = {}) {
+                Text("TextButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            //2 普通按钮
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Button")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            // 3 带Icon的按钮
+            IconButton(onClick = { /*TODO*/ }, modifier = Modifier.requiredWidth(120.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Filled.Favorite, contentDescription = "Favorite",
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
+                    )
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(text = "IconButton")
+                }
+            }
+        }
+        Row {
+            Spacer(modifier = Modifier.width(5.dp))
+            // 4 IconToggleButton
+            IconToggleButton(checked = true, onCheckedChange = {},
+                modifier = Modifier.requiredWidth(120.dp)
+            ) {
+                Text(text = "IconToggleButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            //5 OutlinedButton
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text(text = "OutlinedButton")
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+            // 6 RadioButton
+            RadioButton(selected = true, onClick = { /*TODO*/ })
+        }
+
+        //扩展悬浮按钮
+        ExtendedFloatingActionButton(
+            icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = "") },
+            text = { Text("Like") },
+            onClick = { },
+        )
+    }
+}
+
+/**
+ * material输入框
+ */
+@Composable
+fun TextFieldExample(){
+    Column {
+        //--------------------TextField 输入框 未设置onValueChange时，无论输入何内容均显示“你好”，因为输入内容未赋值给value，与Android原生EditText不同
+        TextField(
+            //输入框中输入的内容
+            value = "",
+            onValueChange = {},
+            //是否单行显示
+            singleLine = true,
+            // 输入框提示内容
+            label = { Text(text = "TextField")},
+            //输入框中文字为空时占位内容
+            placeholder = { Text(text = "请输入内容")},
+            //在输入框左侧显示一个icon
+            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "placeholder")},
+            //在输入框最右侧显示一个icon
+            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+            //设置输入框输入类型
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        //--------------------OutlinedTextField 输入框,可输入内容并显示
+        val valueState = remember {
+            mutableStateOf("")
+        }
+
+        OutlinedTextField(
+            value = valueState.value,
+            onValueChange = {valueState.value = it},
+            singleLine = true,
+            // 输入框提示内容
+            label = { Text(text = "OutlinedTextField")},
+            //输入框中文字为空时占位内容
+            placeholder = { Text(text = "请输入内容") },
+            //在输入框左侧显示一个icon
+            leadingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.AccountCircle), contentDescription = "placeholder")},
+            //在输入框最右侧显示一个icon
+            trailingIcon = {Icon(painter = rememberVectorPainter(image = Icons.Default.Add), contentDescription = "placeholder")},
+            //设置输入框输入类型
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
     }
 }
 
