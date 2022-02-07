@@ -3,13 +3,16 @@ package com.zhh.compose.example.exam02
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.zhh.compose.example.ui.theme.JetpackDemoTheme
 
@@ -75,6 +78,19 @@ fun MyBasicColumn(
     }
 }
 
+/**
+ * 3.布局方向
+ */
+@Composable
+fun ChangeColumnDirection(){
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl ) {
+        Column(Modifier.fillMaxWidth()) {
+            Text("Title")
+            Text("Subtitle")
+        }
+    }
+}
+
 
 @Preview
 @Composable
@@ -113,5 +129,13 @@ fun CustomLayoutPreview() {
             Text("Hi there! - 5")
         }
 
+    }
+}
+
+@Preview
+@Composable
+fun ChangeColumnDirectionPreview() {
+    JetpackDemoTheme {
+        ChangeColumnDirection()
     }
 }
