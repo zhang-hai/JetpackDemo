@@ -35,7 +35,7 @@ import kotlin.math.tan
 @Composable
 fun BingDwenDwen(modifier: Modifier=Modifier){
     val resource = LocalContext.current.resources
-
+    val imageBitmap = ImageBitmap.imageResource(res = resource,id = R.mipmap.winter_olympics_logo)
     Canvas(modifier = modifier){
 
         //转换成原生canvas绘制，替换DrawScope
@@ -69,7 +69,6 @@ fun BingDwenDwen(modifier: Modifier=Modifier){
             drawFiveOvals(canvas,paint)
             drawEyes(canvas, paint)
             drawNoseAndMouth(canvas, paint)
-            val imageBitmap = ImageBitmap.imageResource(res = resource,id = R.mipmap.winter_olympics_logo)
             drawLogo(canvas, paint,imageBitmap)
             drawLightEffect(canvas,paint,oval1Size)
             canvas.restore()
@@ -162,8 +161,8 @@ private fun drawHandles(canvas:Canvas,paint: Paint,ovalSize: Size){
         cubicTo(ex+35,ey-80,ex+20,ey-60,ex+40,ey-40)
 
         //右半部分
-        cubicTo(ex+40,ey-40,ex+80,ey-60,ex+65,ey-80)
-        cubicTo(ex+65,ey-80,ex+50,ey-80,ex+50,ey-70)
+        cubicTo(ex+40,ey-40,ex+80,ey-60,ex+60,ey-78)
+        cubicTo(ex+60,ey-78,ex+50,ey-80,ex+45,ey-70)
         close()
     }
     paint.color = Color.Red
