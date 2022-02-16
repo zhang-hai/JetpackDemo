@@ -13,3 +13,5 @@ app_compose基于Compose示例
 [Jetpack Compose布局(三) - 自定义布局](https://www.jianshu.com/p/f8e70c5fd5eb)
 
 [Jetpack Compose布局(四) - ConstraintLayout](https://www.jianshu.com/p/ef786017c014)
+
+[Jetpack Compose图形绘制-实现冬奥吉祥物冰墩墩](https://www.jianshu.com/p/2c84e7166c00)
