@@ -57,20 +57,27 @@ fun BingDwenDwen(modifier: Modifier=Modifier){
 
             val oval1Size = Size(500f,600f)
 
-            //步骤一
+            //步骤一：画身体
             firstStep(canvas, paint,oval1Size)
             //步骤二：绘制两个耳朵
             drawEars(canvas,paint)
-            //步骤三：
+            //步骤三：画手
             drawHandles(canvas,paint,oval1Size)
-            //步骤四：
+            //步骤四：画脚
             drawLegs(canvas,paint,oval1Size)
-            //步骤五：
+            //步骤五：画面部
             drawFiveOvals(canvas,paint)
+            //步骤六：画眼睛
             drawEyes(canvas, paint)
+            //步骤七：鼻子和嘴巴
             drawNoseAndMouth(canvas, paint)
+            //步骤八：logo、文字、5环
             drawLogo(canvas, paint,imageBitmap)
+            //步骤九：绘制发光效果
             drawLightEffect(canvas,paint,oval1Size)
+            //坐标轴参考线
+//            canvas.drawLine(Offset(0f,-oval1Size.height/2-200), Offset(0f,oval1Size.height/2+200),paint)
+//            canvas.drawLine(Offset(-oval1Size.width/2-2000f,0f), Offset(oval1Size.width/2+200,0f),paint)
             canvas.restore()
         }
 
@@ -213,11 +220,13 @@ private fun drawLegs(canvas: Canvas, paint: Paint, oval1Size: Size) {
     //恢复填充
     paint.style = PaintingStyle.Stroke
 }
-//步骤五：五个椭圆
+//步骤五：面部，绘制5色仅贴着的椭圆，颜色依次：蓝->红->紫->黄->绿
 private fun drawFiveOvals(canvas: Canvas, paint: Paint){
     paint.strokeWidth = 7f
+    //最里面椭圆宽度和高度
     var width = 360f
     var height = 300f
+    //从最里面圆环向外依次width和height需要增加的值
     val offValue = paint.strokeWidth * 2
     val colors = arrayOf(Color(0xff87CEEB),Color(0xff8B0000),Color(0xff6A5ACD),Color(0xffFFD700),Color(0xff32CD32))
     //不包含5
@@ -284,6 +293,7 @@ private fun drawNoseAndMouth(canvas: Canvas, paint: Paint){
         drawArc(-(noseWidth+40)/2,-80f,(noseWidth+40)/2,-50f,0f,180f,false,paint)
         paint.color = Color(0xffA52A2A)
         drawOval(-(noseWidth+60)/2,-20f,(noseWidth+60)/2,36f,paint)
+        paint.color = Color.Black
     }
 }
 
@@ -295,6 +305,7 @@ private fun drawLogo(canvas: Canvas, paint: Paint,imageBitmap: ImageBitmap){
 
         //绘制文字
         val text="BEIJING 2022"
+        //创建原生Paint对象
         val nativePaint = android.graphics.Paint().apply {
             color = android.graphics.Color.BLACK
             strokeWidth = 2f
