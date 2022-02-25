@@ -1,4 +1,4 @@
-package com.zhh.compose.example
+package com.zhh.compose.example.canvas
 
 import android.graphics.Typeface
 import androidx.compose.foundation.Canvas
@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.zhh.compose.example.R
 import kotlin.math.PI
 import kotlin.math.sqrt
 import kotlin.math.tan

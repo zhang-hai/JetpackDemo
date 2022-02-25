@@ -26,6 +26,8 @@
         <activity android:name=".exam02.CustomUIActivity"/>
         <!--学习Compose Canvas-->
         <activity android:name=".canvas.StudyCanvasActivity"/>
+        <!--学习Compose 动画，结合Canvas使用-->
+        <activity android:name=".animate.StudyAnimationActivity"/>
         <!--Compose状态-->
         <!--<activity android:name=".exam03.StudyComposeStateActivity"/>-->
     </application>
