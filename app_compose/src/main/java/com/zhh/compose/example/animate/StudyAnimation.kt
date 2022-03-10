@@ -55,6 +55,8 @@ fun StudyAnimation(){
 
         ValueAnimations()
 
+        CustomAnimations()
+
         GestureAnimation()
     }
 
@@ -86,9 +88,12 @@ private fun ContentAnimation(){
     var crossFadeState by remember {
         mutableStateOf(false)
     }
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(text = "内容动画",modifier = Modifier.fillMaxWidth(),textAlign = TextAlign.Center)
-        Text(text = "AnimatedVisibility实验性----${if (state1) "退出" else "进入"}",Modifier.clickable { state1 = !state1 })
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .verticalScroll(rememberScrollState())) {
+        Text(text = "内容动画",modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(),color = Color.Blue)
+        Text(text = "1.AnimatedVisibility",Modifier.clickable { state1 = !state1 },color = Color.Red)
 
         //内容整体做动画
         AnimatedVisibility(
@@ -109,7 +114,7 @@ private fun ContentAnimation(){
         }
 
         Divider(modifier = Modifier.fillMaxWidth(),color = Color.Blue)
-        Text(text = "AnimatedContent实验性----Add",Modifier.clickable { member++ })
+        Text(text = "2.AnimatedContent",Modifier.clickable { member++ },color = Color.Red)
         AnimatedContent(targetState = member,
             transitionSpec ={
                 // Compare the incoming number with the previous number.
@@ -173,14 +178,14 @@ private fun ContentAnimation(){
         }
 
         Divider(modifier = Modifier.fillMaxWidth(),color = Color.Blue)
-        Text(text = "animateContentSize",color = Color.Red)
+        Text(text = "3.animateContentSize",color = Color.Red)
         Text(text = if (!isExpanded) "点我展开" else "点我收起\n收起",modifier = Modifier
             .fillMaxWidth()
             .animateContentSize()
             .clickable { isExpanded = !isExpanded })
 
         Divider(modifier = Modifier.fillMaxWidth(),color = Color.Blue)
-        Text(text = "Crossfade",
+        Text(text = "4.Crossfade",
             color = Color.Red,
             modifier = Modifier
                 .size(200.dp, 40.dp)
@@ -222,7 +227,31 @@ private fun ValueAnimations(){
 }
 
 /**
- * 3.手势动画
+ * 3.自定义动画
+ */
+@Composable
+private fun CustomAnimations(){
+    Row(modifier = Modifier.fillMaxWidth()) {
+        springAnimation()
+
+        Spacer(modifier = Modifier.width(5.dp))
+        tweenAnimation()
+
+        Spacer(modifier = Modifier.width(5.dp))
+        keyframesAnimation()
+    }
+    Spacer(modifier = Modifier.height(5.dp))
+    Row() {
+        repeatableAnimation()
+        Spacer(modifier = Modifier.width(5.dp))
+        InfiniteRepeatableAnimation()
+        Spacer(modifier = Modifier.width(5.dp))
+        SnapAnimation()
+    }
+}
+
+/**
+ * 4.手势动画
  */
 @Composable
 private fun GestureAnimation(){
@@ -349,6 +378,161 @@ private fun InfiniteTransitionAnimation(){
     )
 }
 
+/**
+ * 弹性动画
+ */
+@Composable
+private fun springAnimation(){
+    var enable by remember{ mutableStateOf(true)}
+    val value: Int by animateIntAsState(
+        targetValue = if (enable) 200 else 50,
+        // Configure the animation duration and easing.
+        animationSpec = spring(
+            //定义弹簧的弹性
+            dampingRatio = Spring.DampingRatioHighBouncy,
+            //定义弹簧应向结束值移动的速度
+            stiffness = Spring.StiffnessHigh
+        )
+    )
+    Box(
+        Modifier
+            .offset(50.dp)
+            .width(value.dp)
+            .height(50.dp)
+            .background(Color.Blue)
+            .clickable { enable = !enable }
+    ){
+        Text(text = "spring")
+    }
+}
+
+/**
+ * 补间动画
+ */
+@Composable
+private fun tweenAnimation(){
+    var enable by remember{ mutableStateOf(false)}
+    val value by animateIntAsState(
+        targetValue = if (enable) 150 else 50,
+        animationSpec = tween(
+            durationMillis = 1000,
+            delayMillis = 500,
+            easing = LinearOutSlowInEasing
+        )
+    )
+    Box(
+        Modifier
+            .width(value.dp)
+            .height(50.dp)
+            .background(Color.Gray)
+            .clickable { enable = !enable }
+    ) {
+        Text(text = "tween")
+    }
+}
+
+/**
+ * 关键帧动画
+ */
+@Composable
+private fun keyframesAnimation(){
+    var enable by remember{ mutableStateOf(false)}
+
+    val value by animateIntAsState(
+        targetValue = if (enable) 200 else 50,
+        animationSpec = keyframes {
+            durationMillis = 2000   //动画执行时长
+            delayMillis = 500       //动画延迟多久后执行
+            50 at 0 with LinearOutSlowInEasing   //0 - 200ms执行的帧
+            100 at 200 with FastOutLinearInEasing // 200 - 1200ms执行的帧
+            150 at 1200 with LinearEasing
+        }
+    )
+    Box(
+        Modifier
+            .height(50.dp)
+            .width(value.dp)
+            .background(Color.Yellow)
+            .clickable { enable = !enable }
+    ) {
+       Text(text = "keyframes")
+    }
+}
+
+/**
+ * 重复动画
+ */
+@Composable
+private fun repeatableAnimation(){
+    var enable by remember{ mutableStateOf(false)}
+
+    val value by animateIntAsState(
+        targetValue = if (enable) 200 else 50,
+        animationSpec = repeatable(
+            iterations = 2,   //重复执行次数
+            animation = tween(durationMillis = 1000),
+            repeatMode = RepeatMode.Reverse  //重复执行模式，从最后开始
+        )
+    )
+    Box(
+        Modifier
+            .height(50.dp)
+            .width(value.dp)
+            .background(Color.Red)
+            .clickable { enable = !enable }
+    ) {
+        Text(text = "repeatable")
+    }
+}
+
+/**
+ * 无限次重复动画
+ */
+@Composable
+private fun InfiniteRepeatableAnimation(){
+    var enable by remember{ mutableStateOf(false)}
+
+    val value by animateIntAsState(
+        targetValue = if (enable) 200 else 50,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000),
+            repeatMode = RepeatMode.Reverse  //重复执行模式，从最后开始
+        )
+    )
+    Box(
+        Modifier
+            .height(50.dp)
+            .width(value.dp)
+            .background(Color.Green)
+            .clickable { enable = !enable }
+    ) {
+        Text(text = "infiniteRepeatable")
+    }
+}
+
+/**
+ * 立即将值切换到结束值的动画
+ */
+@Composable
+private fun SnapAnimation(){
+    var enable by remember{ mutableStateOf(false)}
+
+    val value by animateIntAsState(
+        targetValue = if (enable) 200 else 50,
+        animationSpec = snap(
+            delayMillis = 1000   //延迟1000ms执行
+        )
+    )
+    Box(
+        Modifier
+            .height(50.dp)
+            .width(value.dp)
+            .background(Color.Black)
+            .clickable { enable = !enable }
+    ) {
+        Text(text = "snap",color = Color.White)
+    }
+}
 
 private fun Offset.toIntOffset() = IntOffset(x.roundToInt(), y.roundToInt())
 
