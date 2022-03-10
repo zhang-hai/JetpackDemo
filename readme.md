@@ -24,4 +24,6 @@
 
 [Jetpack Compose图形绘制-实现冬奥吉祥物冰墩墩](https://www.jianshu.com/p/2c84e7166c00)
 
+[Jetpack Compose动画](https://www.jianshu.com/p/d4d268de966e)
+
 [Jetpack Compose手势使用](https://www.jianshu.com/p/31b49f32f98d)
